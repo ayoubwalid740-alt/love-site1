@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Love Secret</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    overflow:hidden;
+    text-align:center;
+    background: linear-gradient(45deg,#ffdde1,#ee9ca7);
+}
+
+/* الصفحات */
+.page{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+/* زر */
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:25px;
+    background:#ff4081;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin:10px;
+}
+
+/* input */
+input{
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+    font-size:16px;
+}
+
+/* صورة */
+img{
+    width:300px;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+/* قلوب */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation: float 5s linear;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* زر الموسيقى */
+#musicBtn{
+    position:fixed;
+    top:10px;
+    right:10px;
+    z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎁 صفحة البداية -->
+<div class="page" id="p1" style="display:flex;">
+    <h1>🎁 هدية خاصة لك</h1>
+    <button onclick="next(2)">ابدئي ❤️</button>
+</div>
+
+<!-- 🔐 صفحة السر -->
+<div class="page" id="p2">
+    <h2>🔐 أدخلي كلمة السر</h2>
+    <p>ممنوع الدخول إلا للمحبوبة 😏</p>
+    <input id="pass" placeholder="اكتبي كلمة السر">
+    <button onclick="check()">دخول 💖</button>
+</div>
+
+<!-- 💖 صفحة الصورة -->
+<div class="page" id="p3">
+
+    <button id="musicBtn" onclick="toggleMusic()">🎵 تشغيل/إيقاف</button>
+
+    <h2>أحبك يا بنتي ❤️</h2>
+
+    <img src="/mnt/data/3473c946-6ebc-495f-a5b4-5f0c72d43a80.png">
+
+    <p>أنتِ قلبي وروحي وكل شيء 💖</p>
+</div>
+
+<!-- 🎵 موسيقى -->
+<iframe id="music"
+width="0" height="0"
+src="https://www.youtube.com/embed/H1Yt0xJKDY8?autoplay=0&mute=0"
+allow="autoplay">
+</iframe>
+
+<script>
+
+function next(n){
+    document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+    document.getElementById("p"+n).style.display="flex";
+}
+
+/* كلمة السر */
+function check(){
+    let val = document.getElementById("pass").value;
+
+    if(val === "بحبك وبموت فيك بنتي"){
+        next(3);
+        startHearts();
+    }else{
+        alert("❌ كلمة السر خاطئة");
+    }
+}
+
+/* تشغيل/إيقاف الموسيقى */
+let playing = false;
+
+function toggleMusic(){
+    let frame = document.getElementById("music");
+
+    if(!playing){
+        frame.src = "https://www.youtube.com/embed/H1Yt0xJKDY8?autoplay=1";
+    }else{
+        frame.src = frame.src;
+    }
+
+    playing = !playing;
+}
+
+/* قلوب */
+function heart(){
+    let h = document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+}
+
+function startHearts(){
+    setInterval(heart,200);
+}
+
+</script>
+
+</body>
+</html>
